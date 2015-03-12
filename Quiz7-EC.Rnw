@@ -1,16 +1,12 @@
-<html lang="en">
+\documentclass{article}
 
-<head>
-<meta charset="UTF-8">
-<title>Title</title>
-</head>
+\begin{document}
 
-<body>
-<h1>List of people who died climbing Mount Everest</h1>
+\section*{List of people who died climbing Mount Everest}
 
-<p>The following chart represents the number of fatalties who died climbing Mount Everest by month. </p>
+The following chart represents the number of fatalties who died climbing Mount Everest by month.
 
-<!--begin.rcode, results='asis', echo=FALSE
+<<chunk1, results='asis', echo=FALSE >>=
 library("rvest")
 
 ## import table data from wikipedia source ##
@@ -38,8 +34,8 @@ cyl <- c("Jan", "Mar", "Apr", "May", "Jun", "Aug", "Sep", "Oct", "Nov", "Dec")
 ## Create a barchart ##
 barplot(counts, names.arg=cyl, ylim = c(0,120), xlab = "Month", ylab="Fatalties", main="Fatalties by month")
 
+@
 
-end.rcode-->
 
-</body>
-</html>
+
+\end{document}
