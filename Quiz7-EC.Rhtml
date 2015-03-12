@@ -1,0 +1,52 @@
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+
+<body>
+
+<p>This is an R HTML document. When you click the <b>Knit HTML</b> button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+
+<!--begin.rcode, results='asis', echo=FALSE
+library("rvest")
+library(xtable)
+
+pop <- html("http://en.wikipedia.org/wiki/List_of_people_who_died_climbing_Mount_Everest")
+df1 <- html_table(html_nodes(pop, "table")[[1]], fill=TRUE)
+
+##caption <- "Casualties"
+##matrixDf <- xtable(as.matrix(df1[,1:7]), caption=caption)
+##print(matrixDf,
+##      caption.placement="top", include.rownames=FALSE, type="html")
+
+dates<-substr(df1$Date,regexpr("!", df1$Date) + 1 , nchar(df1$Date))
+lblsOfMonth<-substr(dates , 1,regexpr(" ", dates)-1)
+df1$Date <- lblsOfMonth
+
+counts <- table(df1$Date)
+barplot(counts)
+?barplot
+
+##barplot(counts, main="People who died climbing Mount Everest by month",
+##   xlab="Month", xlim= c(0,150), horiz=TRUE) 
+
+##cyl <- c("January", "February", "March", "April", "May","?May", "June", "July", "August", "September", "October", "November", "December")
+cyl <- c("January", "March", "April", "May","?May", "June", "August", "September", "October", "November", "December")
+
+df2 <- data.frame(counts, row.names=cyl)
+df2
+# Generate data
+c <- ggplot(df2, aes(df2$var1))
+
+##c <- qplot(factor(cyl), data=df2, geom="bar")
+
+# By default, uses stat="bin", which gives the count in each category
+c + geom_bar()
+end.rcode-->
+
+<p>You can also embed plots, for example:</p>
+
+</body>
+</html>
