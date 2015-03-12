@@ -11,39 +11,25 @@
 
 <!--begin.rcode, results='asis', echo=FALSE
 library("rvest")
-library(xtable)
 
 pop <- html("http://en.wikipedia.org/wiki/List_of_people_who_died_climbing_Mount_Everest")
 df1 <- html_table(html_nodes(pop, "table")[[1]], fill=TRUE)
 
-##caption <- "Casualties"
-##matrixDf <- xtable(as.matrix(df1[,1:7]), caption=caption)
-##print(matrixDf,
-##      caption.placement="top", include.rownames=FALSE, type="html")
 
-dates<-substr(df1$Date,regexpr("!", df1$Date) + 1 , nchar(df1$Date))
-lblsOfMonth<-substr(dates , 1,regexpr(" ", dates)-1)
-df1$Date <- lblsOfMonth
-
+##dates<-substr(df1$Date,regexpr("!", df1$Date) + 1 , nchar(df1$Date))
+dates <- as.Date(df1$Date)
+dates[231] <- as.Date("2012-10-19")
+dates[240] <- as.Date("2014-04-02")
+dates[241:256] <- as.Date("2014-04-18")
+dates<-format(dates, "%m")
+df1$Date <- dates
 counts <- table(df1$Date)
-barplot(counts)
-?barplot
 
-##barplot(counts, main="People who died climbing Mount Everest by month",
-##   xlab="Month", xlim= c(0,150), horiz=TRUE) 
+cyl <- c("Jan", "Mar", "Apr", "May", "Jun", "Aug", "Sep", "Oct", "Nov", "Dec")
 
-##cyl <- c("January", "February", "March", "April", "May","?May", "June", "July", "August", "September", "October", "November", "December")
-cyl <- c("January", "March", "April", "May","?May", "June", "August", "September", "October", "November", "December")
+barplot(counts, names.arg=cyl, ylim = c(0,120), xlab = "Month", ylab="Casualties", main="Deaths by month")
 
-df2 <- data.frame(counts, row.names=cyl)
-df2
-# Generate data
-c <- ggplot(df2, aes(df2$var1))
 
-##c <- qplot(factor(cyl), data=df2, geom="bar")
-
-# By default, uses stat="bin", which gives the count in each category
-c + geom_bar()
 end.rcode-->
 
 <p>You can also embed plots, for example:</p>
