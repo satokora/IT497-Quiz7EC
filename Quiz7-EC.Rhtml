@@ -6,8 +6,9 @@
 </head>
 
 <body>
+<h1>List of people who died climbing Mount Everest</h1>
 
-<p>This is an R HTML document. When you click the <b>Knit HTML</b> button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+<p>The following chart represents the number of fatalties who died climbing Mount Everest by month. </p>
 
 <!--begin.rcode, results='asis', echo=FALSE
 library("rvest")
@@ -27,12 +28,10 @@ counts <- table(df1$Date)
 
 cyl <- c("Jan", "Mar", "Apr", "May", "Jun", "Aug", "Sep", "Oct", "Nov", "Dec")
 
-barplot(counts, names.arg=cyl, ylim = c(0,120), xlab = "Month", ylab="Casualties", main="Deaths by month")
+barplot(counts, names.arg=cyl, ylim = c(0,120), xlab = "Month", ylab="Fatalties", main="Fatalties by month")
 
 
 end.rcode-->
-
-<p>You can also embed plots, for example:</p>
 
 </body>
 </html>
